@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DoseLogic</title>
+<meta name="description" content="เครื่องมือคำนวณยาสำหรับเภสัชกร ATB Calculator และ Drip Calculator">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* ธีมฉลากยา (แบบ 3 ที่พี่เลือก 2026-11-06) หน้าเดียว สว่างอย่างเดียว ให้เข้ากับ Google Sites */
+:root{
+  --paper:#eef1ee; --label:#fbfcfa; --ink:#1d2420; --ink-2:#4d5a52; --rule:#9aa79e;
+  --atb:#0e7490; --drip:#15803d; --warn:#b45309; --warn-bg:#fff7ed; --warn-ink:#7c2d12;
+  --sans:'Sarabun','Thonburi',-apple-system,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
+.page{max-width:960px;margin:0 auto;padding:28px max(16px,env(safe-area-inset-right)) 24px max(16px,env(safe-area-inset-left));display:grid;gap:22px}
+
+.hero{display:grid;gap:6px}
+.eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:.9rem;color:var(--ink-2)}
+.eyebrow .brand{font-family:var(--mono);font-weight:700;font-size:.8rem;letter-spacing:.1em;color:var(--ink)}
+.rx{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-weight:700;font-size:.78rem;letter-spacing:0}
+.hero h1{margin:4px 0 0;font-size:clamp(1.55rem,4.2vw,2.1rem);font-weight:800;line-height:1.25;text-wrap:balance}
+.hero p{margin:0;color:var(--ink-2);max-width:54ch}
+
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px}
+.tool{background:var(--label);border:1.5px solid var(--ink);border-radius:4px;display:flex;flex-direction:column;min-width:0}
+.lab-h{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 14px;color:#fff;font-family:var(--mono);font-size:.76rem;letter-spacing:.08em}
+.atb .lab-h{background:var(--atb)} .drip .lab-h{background:var(--drip)}
+.lab-b{padding:14px 16px 16px;display:flex;flex-direction:column;gap:12px;flex:1}
+.tool h2{margin:0;font-size:1.3rem;font-weight:800}
+.rows{border-top:1px dashed var(--rule);font-size:.92rem}
+.rows div{display:grid;grid-template-columns:4.6em 1fr;gap:10px;padding:6px 0;border-bottom:1px dashed var(--rule)}
+.rows b{font-size:.82rem;color:var(--ink-2);font-weight:600;padding-top:1px}
+.acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:auto;padding-top:2px}
+.btn{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.95rem;padding:10px 16px;border-radius:3px;text-decoration:none;min-height:44px;transition:transform .12s,box-shadow .12s}
+.btn.go{background:var(--ink);color:var(--label)}
+.btn.ghost{border:1.5px solid var(--ink);color:var(--ink);background:transparent}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ink)}
+.btn.go:hover{box-shadow:3px 3px 0 var(--rule)}
+.btn:focus-visible{outline:3px solid var(--atb);outline-offset:2px}
+.btn svg{width:14px;height:14px;flex:none}
+.hint{font-size:.82rem;color:var(--ink-2);margin:0}
+.tools-wrap{display:grid;gap:10px}
+
+.safe{border:2px solid var(--warn);border-radius:4px;background:var(--warn-bg);color:var(--warn-ink);padding:12px 14px;display:flex;gap:10px;align-items:flex-start;font-size:.95rem}
+.safe b{font-size:.82rem;background:var(--warn);color:#fff;padding:1px 8px;border-radius:2px;white-space:nowrap;margin-top:1px}
+
+.foot{font-size:.8rem;color:var(--ink-2);text-align:right;padding-bottom:8px}
+@media (max-width:520px){.page{padding-top:20px;gap:18px}.foot{padding-bottom:40px}}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}.btn:hover{transform:none}}
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="hero">
+    <div class="eyebrow"><span class="rx" aria-hidden="true">Rx</span><span class="brand">DOSELOGIC</span><span>เครื่องมือสำหรับเภสัชกร</span></div>
+    <h1>นับยา ผสมยา ตรวจขนาด ในไม่กี่คลิก</h1>
+    <p>เลือกเครื่องมือที่ต้องใช้ เปิดได้ทั้งคอมและมือถือ</p>
+  </header>
+
+  <div class="tools-wrap">
+  <section class="tools" aria-label="เครื่องมือ">
+    <article class="tool atb">
+      <div class="lab-h"><span>ANTIBIOTIC</span><span>IV</span></div>
+      <div class="lab-b">
+        <h2>ATB Calculator</h2>
+        <div class="rows">
+          <div><b>ใช้นับ</b><span>dose ยาปฏิชีวนะ ที่ได้แล้วและที่เหลือ</span></div>
+          <div><b>ได้ผล</b><span>วันครบยา พร้อม Pharmacist note</span></div>
+        </div>
+        <div class="acts">
+          <a class="btn go" href="https://sites.google.com/view/pharmatoolseditor/atb-calculator" target="_blank" rel="noopener">เปิด ATB Calculator <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="tool drip">
+      <div class="lab-h"><span>CONTINUOUS DRIP</span><span>IV</span></div>
+      <div class="lab-b">
+        <h2>Drip Calculator</h2>
+        <div class="rows">
+          <div><b>ใช้นับ</b><span>จำนวน amp ยาหยดต่อ order</span></div>
+          <div><b>ได้ผล</b><span>เตือนขนาดยาเกินเกณฑ์ พร้อม note แบบ SBAR</span></div>
+        </div>
+        <div class="acts">
+          <a class="btn go" href="https://sites.google.com/view/pharmatoolseditor/drip-calculator" target="_blank" rel="noopener">เปิด Drip Calculator <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12"/></svg></a>
+          <a class="btn ghost" href="https://natthaphonyay-hub.github.io/drip-calculator/manual/" target="_blank" rel="noopener">คู่มือ</a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <p class="hint">ปุ่มเปิดเครื่องมือในแท็บใหม่ หรือใช้เมนูด้านบนของเว็บ</p>
+  </div>
+
+  <div class="safe" role="note"><b>ข้อควรระวัง</b><span>ผลคำนวณเป็นร่างช่วยงาน เภสัชกรต้องตรวจทานกับคำสั่งแพทย์และแนวทางของโรงพยาบาลก่อนใช้จริง</span></div>
+
+  <footer class="foot">พัฒนาโดย <span style="font-family:var(--mono)">DoseLogic</span></footer>
+</main>
+</body>
+</html>
