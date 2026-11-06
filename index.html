@@ -104,7 +104,24 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:
 
   <div class="safe" role="note"><b>ข้อควรระวัง</b><span>ผลคำนวณเป็นร่างช่วยงาน เภสัชกรต้องตรวจทานกับคำสั่งแพทย์และแนวทางของโรงพยาบาลก่อนใช้จริง</span></div>
 
-  <footer class="foot">พัฒนาโดย <span style="font-family:var(--mono)">DoseLogic</span></footer>
+  <footer class="foot">พัฒนาโดย <span style="font-family:var(--mono)">DoseLogic</span><div id="logNotice" hidden>เว็บนี้นับจำนวนการเข้าใช้แบบไม่ระบุตัวตน</div></footer>
 </main>
+<script>
+/* Usage log (anonymous): one row per visit in the DoseLogic Google Sheet (Apps Script code in the owner's PARA:
+   0 Inbox/DoseLogic-หน้าแรก/apps-script-เก็บข้อมูล/Code.gs). Off on file://, in headless or automated browsers and with ?nolog. */
+(function () {
+  var LOG_URL = 'https://script.google.com/macros/s/AKfycbyelczLFGoo5j3icdHnCxg07gW3FbS3s95XX7grzbulcAfHgzEh0SByhl44W-89bs580A/exec';
+  if (location.protocol !== 'https:' || navigator.webdriver || /HeadlessChrome/.test(navigator.userAgent) || /[?&]nolog\b/.test(location.search)) return;
+  var n = document.getElementById('logNotice'); if (n) n.hidden = false;
+  var dev = '';
+  try { dev = localStorage.getItem('dl-dev') || ''; if (!dev) { dev = Math.random().toString(36).slice(2, 10); localStorage.setItem('dl-dev', dev); } } catch (e) {}
+  var ref = 'เปิดตรง';
+  try { ref = window.self !== window.top ? 'ฝังใน Sites' : (document.referrer ? new URL(document.referrer).hostname : 'เปิดตรง'); } catch (e) { ref = 'ฝังใน Sites'; }
+  try {
+    fetch(LOG_URL, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ v: 1, kind: 'visit', dev: dev, tool: 'home', w: window.innerWidth, ref: ref, ver: 'home' }) }).catch(function () {});
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
