@@ -23,7 +23,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:
 .page{max-width:960px;margin:0 auto;padding:28px max(16px,env(safe-area-inset-right)) 24px max(16px,env(safe-area-inset-left));display:grid;gap:22px}
 
 .hero{display:grid;gap:6px}
-.eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:.9rem;color:var(--ink-2)}
+/* brand row = the label's top line, set apart from the heading so it reads as a header */
+.eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:.9rem;color:var(--ink-2);padding-bottom:14px;margin-bottom:10px;border-bottom:1px dashed var(--rule)}
 .eyebrow .brand{font-family:var(--mono);font-weight:700;font-size:.8rem;letter-spacing:.1em;color:var(--ink)}
 .rx{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-weight:700;font-size:.78rem;letter-spacing:0}
 .hero h1{margin:4px 0 0;font-size:clamp(1.55rem,4.2vw,2.1rem);font-weight:800;line-height:1.25;text-wrap:balance}
@@ -39,11 +40,11 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:
 .rows div{display:grid;grid-template-columns:4.6em 1fr;gap:10px;padding:6px 0;border-bottom:1px dashed var(--rule)}
 .rows b{font-size:.82rem;color:var(--ink-2);font-weight:600;padding-top:1px}
 .acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:auto;padding-top:2px}
-.btn{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.95rem;padding:10px 16px;border-radius:3px;text-decoration:none;min-height:44px;transition:transform .12s,box-shadow .12s}
+.btn{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.95rem;padding:10px 16px;border-radius:3px;text-decoration:none;min-height:44px;transition:background-color .12s}
 .btn.go{background:var(--ink);color:var(--label)}
 .btn.ghost{border:1.5px solid var(--ink);color:var(--ink);background:transparent}
-.btn:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ink)}
-.btn.go:hover{box-shadow:3px 3px 0 var(--rule)}
+.btn.go:hover{background:#2d3631}
+.btn.ghost:hover{background:#e3e8e4}
 .btn:focus-visible{outline:3px solid var(--atb);outline-offset:2px}
 .btn svg{width:14px;height:14px;flex:none}
 .hint{font-size:.82rem;color:var(--ink-2);margin:0}
@@ -52,9 +53,10 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:
 .safe{border:2px solid var(--warn);border-radius:4px;background:var(--warn-bg);color:var(--warn-ink);padding:12px 14px;display:flex;gap:10px;align-items:flex-start;font-size:.95rem}
 .safe b{font-size:.82rem;background:var(--warn);color:#fff;padding:1px 8px;border-radius:2px;white-space:nowrap;margin-top:1px}
 
-.foot{font-size:.8rem;color:var(--ink-2);text-align:right;padding-bottom:8px}
+.foot{font-size:13px;color:var(--ink-2);text-align:right;padding-bottom:8px}
+::selection{background:rgba(29,36,32,.16)}
 @media (max-width:520px){.page{padding-top:20px;gap:18px}.foot{padding-bottom:40px}}
-@media (prefers-reduced-motion:reduce){.btn{transition:none}.btn:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}
 </style>
 </head>
 <body>
