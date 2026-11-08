@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DoseLogic</title>
-<meta name="description" content="เครื่องมือคำนวณยาสำหรับเภสัชกร ATB Calculator และ Drip Calculator">
+<meta name="description" content="เครื่องมือคำนวณยาสำหรับเภสัชกร ATB Calculator, Drip Calculator และ TB Calculator">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap">
@@ -12,7 +12,7 @@
 /* ธีมฉลากยา (แบบ 3 ที่พี่เลือก 2026-11-06) หน้าเดียว สว่างอย่างเดียว ให้เข้ากับ Google Sites */
 :root{
   --paper:#eef1ee; --label:#fbfcfa; --ink:#1d2420; --ink-2:#4d5a52; --rule:#9aa79e;
-  --atb:#0e7490; --drip:#15803d; --warn:#b45309; --warn-bg:#fff7ed; --warn-ink:#7c2d12;
+  --atb:#0e7490; --drip:#15803d; --tb:#7a4a2a; --warn:#b45309; --warn-bg:#fff7ed; --warn-ink:#7c2d12;
   --sans:'Sarabun','Thonburi',-apple-system,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
   color-scheme:light;
@@ -33,7 +33,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:
 .tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px}
 .tool{background:var(--label);border:1.5px solid var(--ink);border-radius:4px;display:flex;flex-direction:column;min-width:0}
 .lab-h{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 14px;color:#fff;font-family:var(--mono);font-size:.76rem;letter-spacing:.08em}
-.atb .lab-h{background:var(--atb)} .drip .lab-h{background:var(--drip)}
+.atb .lab-h{background:var(--atb)} .drip .lab-h{background:var(--drip)} .tb .lab-h{background:var(--tb)}
 .lab-b{padding:14px 16px 16px;display:flex;flex-direction:column;gap:12px;flex:1}
 .tool h2{margin:0;font-size:1.3rem;font-weight:800}
 .rows{border-top:1px dashed var(--rule);font-size:.92rem}
@@ -64,7 +64,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:
   <header class="hero">
     <div class="eyebrow"><span class="rx" aria-hidden="true">Rx</span><span class="brand">DOSELOGIC</span></div>
     <h1>เครื่องมือคำนวณยาสำหรับเภสัชกร</h1>
-    <p>ช่วยนับจำนวน dose และจำนวนยาที่ต้องเตรียม พร้อมร่าง <span style="white-space:nowrap">Pharmacist note</span> เพื่อใช้ประกอบการทบทวนคำสั่งใช้ยา</p>
+    <p>ช่วยนับจำนวน dose และจำนวนยาที่ต้องเตรียม คิดขนาดยาตามน้ำหนัก พร้อมร่าง <span style="white-space:nowrap">Pharmacist note</span> เพื่อใช้ประกอบการทบทวนคำสั่งใช้ยา</p>
   </header>
 
   <div class="tools-wrap">
@@ -94,6 +94,21 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:
         <div class="acts">
           <a class="btn go" href="https://sites.google.com/view/pharmatoolseditor/drip-calculator" target="_blank" rel="noopener">เปิด Drip Calculator <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12"/></svg></a>
           <a class="btn ghost" href="https://natthaphonyay-hub.github.io/drip-calculator/manual/" target="_blank" rel="noopener">คู่มือ</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="tool tb">
+      <div class="lab-h"><span>TUBERCULOSIS</span><span>ORAL</span></div>
+      <div class="lab-b">
+        <h2>TB Calculator</h2>
+        <div class="rows">
+          <div><b>ใช้คิด</b><span>ขนาดยาวัณโรค 2HRZE/4HR ตามน้ำหนัก</span></div>
+          <div><b>ได้ผล</b><span>จำนวนเม็ด ปรับหรือไม่ปรับยา พร้อม Pharmacist note</span></div>
+        </div>
+        <div class="acts">
+          <a class="btn go" href="https://sites.google.com/view/pharmatoolseditor/tb-calculator" target="_blank" rel="noopener">เปิด TB Calculator <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12"/></svg></a>
+          <a class="btn ghost" href="https://natthaphonyay-hub.github.io/tb-calculator/manual/" target="_blank" rel="noopener">คู่มือ</a>
         </div>
       </div>
     </article>
